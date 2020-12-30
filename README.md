@@ -7,7 +7,7 @@ Python tool for automating YouTube videos converting to mp3 and downloading.
 * **-f/--csv-file** - Path to csv file containing the urls to be converted and downloaded
 * **-b/--bin-location** - Path to chrome .exe file
 * **-c/--chrome-driver** - Path to chrome driver
-* **-d/--download_path** - Path to files to be downloaded to locally
+* **-d/--download-path** - Path to files to be downloaded to locally
 ## Run Example
 ```bash
 git clone https://github.com/galbirk/python-youtube-downloader.git
