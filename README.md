@@ -1,4 +1,5 @@
 # python-youtube-downloader
+![python-version](https://img.shields.io/badge/python-v3.9-blue)<br>
 Python tool for automating YouTube videos converting to mp3 and downloading.
 ## Arguments
 **-h/--help** - Get help with using the tool
