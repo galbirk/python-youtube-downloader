@@ -39,8 +39,10 @@ if not os.path.exists(downloads_path):
     os.mkdir(downloads_path)
 
 options = webdriver.ChromeOptions() 
+prefs = {"download.default_directory" : args.downloads_path}
+options.add_experimental_option("prefs",prefs)
 options.binary_location = args.bin
-options.add_argument(r"download.default_directory={}".format(args.downloads_path))
+#options.add_argument(r"download.default_directory={}".format(args.downloads_path))
 driver = webdriver.Chrome(options=options, executable_path=args.chromedriver, )
 
 if args.csv:
