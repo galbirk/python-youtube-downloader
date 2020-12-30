@@ -1,3 +1,4 @@
+# Author: Gal Birkman, DevOps Engineer. galbirkman@gmail.com
 import time
 import argparse
 from selenium import webdriver
@@ -18,24 +19,38 @@ def convert_download(url):
     download_button.click()
     time.sleep(2)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--url',dest=url,help="Enter url from youtube to be Downloaded")
-parser.add_argument('--bin-location',help="Path for the .exe file of chrome",default=r"C:\Program Files\Google\Chrome\Application\chrome.exe")
-parser.add_argument()
-args = parser.parse_args()
 chromedriver = r"{}\chromedriver.exe".format(os.path.dirname(os.path.realpath(__file__)))
 downloads_path = r"{}\downloads".format(os.path.dirname(os.path.realpath(__file__)))
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-u','--url',dest='url',help="url from youtube to be Downloaded")
+parser.add_argument('-b','--bin-location',dest='bin',help="Path for the .exe file of chrome",default=r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+parser.add_argument('-f','--csv-file',dest='csv',help="Path for csv file wirh urls to be downloaded")
+parser.add_argument('-c','--chrome-driver',dest='chromedriver',help="Path to chrome driver location",default=chromedriver)
+parser.add_argument('-d','--download-path',dest='downloads_path',help="Path for files to be dowloaded to",default=downloads_path)
+args = parser.parse_args()
+
+if not args.csv and not args.url:
+    raise parser.error('Must Enter url or csv path')
+elif args.csv and args.url:
+    raise parser.error('Enter url OR csv path')
 
 if not os.path.exists(downloads_path):
     os.mkdir(downloads_path)
 
 options = webdriver.ChromeOptions() 
-options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-options.add_argument(r"download.default_directory={}".format(downloads_path))
-driver = webdriver.Chrome(options=options, executable_path=chromedriver, )
-with open('urls.csv',newline='') as csv_file:
-    reader = csv.reader(csv_file)
-    for url in reader:
-        convert_download(url)
-        print(f"Succesfully downloaded {url}!")
+options.binary_location = args.bin
+options.add_argument(r"download.default_directory={}".format(args.downloads_path))
+driver = webdriver.Chrome(options=options, executable_path=args.chromedriver, )
+
+if args.csv:
+    with open(f'{args.csv}',newline='') as csv_file:
+        reader = csv.reader(csv_file)
+        for url in reader:
+            convert_download(url)
+            print(f"Succesfully downloaded {url}!")
+elif args.url:
+    convert_download(args.url)
+    print(f"Succesfully downloaded {args.url}!")
+
 driver.quit()
