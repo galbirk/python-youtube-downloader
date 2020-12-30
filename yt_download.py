@@ -1,8 +1,8 @@
 # Author: Gal Birkman, DevOps Engineer. galbirkman@gmail.com
-import time
-import argparse
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import time
+import argparse
 import csv 
 import os
 
@@ -14,7 +14,6 @@ def convert_download(url):
     convert_button.click()
     time.sleep(1.5)
     download_button = driver.find_elements_by_link_text('Download')
-    print (len(download_button))
     download_button = download_button[0]
     download_button.click()
     time.sleep(2)
@@ -42,7 +41,6 @@ options = webdriver.ChromeOptions()
 prefs = {"download.default_directory" : args.downloads_path}
 options.add_experimental_option("prefs",prefs)
 options.binary_location = args.bin
-#options.add_argument(r"download.default_directory={}".format(args.downloads_path))
 driver = webdriver.Chrome(options=options, executable_path=args.chromedriver, )
 
 if args.csv:
