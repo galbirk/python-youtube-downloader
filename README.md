@@ -13,7 +13,7 @@ Python tool for automating YouTube videos converting to mp3 and downloading.
 git clone https://github.com/galbirk/python-youtube-downloader.git
 cd python-youtube-downloader
 python -m pip install -r requirements.txt
-python yt_downloader.py -f "/path/to/csv"
+python yt_download.py -f "/path/to/csv"
 ```
 **Notice!** The chrome driver in this repositry is for chrome version 87<br>
 ### Example for csv file
