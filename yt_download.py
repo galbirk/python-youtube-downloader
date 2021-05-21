@@ -15,7 +15,12 @@ def convert_download(url):
     convert_button.click()
     time.sleep(1.5)
     download_button = driver.find_elements_by_link_text('Download')
-    download_button = download_button[0]
+    try:
+        download_button = download_button[0]
+    except:
+        time.sleep(20)
+        download_button = driver.find_elements_by_link_text('Download')
+        download_button = download_button[0]
     download_button.click()
     time.sleep(2)
 
